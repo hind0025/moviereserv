@@ -25,6 +25,8 @@ public class Userinfo
     @NotNull
     private String password;
 
+    private String role;
+
 
 
 }

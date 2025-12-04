@@ -7,14 +7,17 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Map;
+
 @Component
 public class JwtUtil
 {
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     // CREATE TOKEN
-    public String generateToken(String email) {
+    public String generateToken(String email,String role) {
         return Jwts.builder()
+                .setClaims(Map.of("role", role))
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 10)))  // 10 hours
@@ -30,6 +33,14 @@ public class JwtUtil
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+    public String extractRole(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role",String.class);
     }
 
     // VALIDATE TOKEN

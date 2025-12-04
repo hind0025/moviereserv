@@ -28,6 +28,7 @@ public class Usersignin
             Userinfo newuser=new Userinfo();
             newuser.setEmail(email);
             newuser.setPassword(hashed);
+            newuser.setRole("user");
             userinforepository.save(newuser);
             return "user signed in ";
 
@@ -48,8 +49,8 @@ public class Usersignin
             return "wrong password";
         }
 
-        // 🔥 Generate JWT
-        return jwtUtil.generateToken(email);
+        // Generate JWT
+        return jwtUtil.generateToken(email,user.getRole());
 
     }
 }
