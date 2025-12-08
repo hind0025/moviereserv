@@ -16,4 +16,6 @@ public class Booking {
     private MovieShow show;   // linked to show
 
     private int seatsBooked;
+
+    private String status;
 }

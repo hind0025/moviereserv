@@ -31,9 +31,27 @@ public class BookingService
         Booking booking = new Booking();
         booking.setShow(show);
         booking.setSeatsBooked(seats);
+        booking.setStatus("BOOKED");
         bookingRepository.save(booking);
 
         return "booking successful for "+available +" seats";
+    }
+
+    public String cancelBooking(Long bookingId) throws RuntimeException
+    {
+        Booking booking=bookingRepository.findById(bookingId).orElseThrow(()->new RuntimeException("Booking not found"));
+        MovieShow show=booking.getShow();
+
+        if(booking.getStatus().equals("BOOKED"))
+        {
+            booking.setStatus("CANCELLED");
+
+        }
+        int cancelledSeats=booking.getSeatsBooked();
+        show.setBookedSeats(show.getBookedSeats() - cancelledSeats);
+        movieShowRepository.save(show);
+
+        return "Booking cancelled successfully";
     }
 
 }
