@@ -4,17 +4,20 @@ import com.movie.demo.Entity.Userinfo;
 import com.movie.demo.Repository.UserinfoRepository;
 import com.movie.demo.Util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Configuration
 public class Usersignin
 {
-    private  UserinfoRepository userinforepository;
+    private final  UserinfoRepository userinforepository;
 
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+
 
     public String checkUserExists(String email,String pass)
     {
