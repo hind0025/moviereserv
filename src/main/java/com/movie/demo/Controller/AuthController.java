@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signup(@RequestBody LoginRequest request) {
-        return usersignin.checkUserExists(request.getEmail(), request.getPassword());
+        return usersignin.signup(request.getEmail(), request.getPassword());
     }
 
     @PostMapping("/login")
