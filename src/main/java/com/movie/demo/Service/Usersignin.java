@@ -45,9 +45,6 @@ public class Usersignin {
         }
 
 
-        return jwtUtil.generateToken(
-                user.getEmail(),
-                user.getRole().name()
-        );
+        return jwtUtil.generateToken(user.getEmail(), user.getRole().name());
     }
 }
